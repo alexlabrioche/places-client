@@ -1,22 +1,31 @@
 import React, { useContext } from 'react';
-import { Box, Heading } from 'grommet';
-import { AuthContext } from '../context/authContext';
+import { Box, Heading, Text, Button } from 'grommet';
+import { UserContext } from '../context/userContext';
 
 function AppBar({ ...otherProps }) {
-  const { isAuthenticated, user } = useContext(AuthContext);
+  const { user, logout } = useContext(UserContext);
   return (
     <Box
-      flex
       direction="row"
       align="center"
       justify="between"
-      pad={{ vertical: 'medium', horizontal: 'medium' }}
+      pad={{ vertical: 'small', horizontal: 'medium' }}
       {...otherProps}
       background="light-1"
     >
-      <Heading level={3} margin="none">
+      <Heading level={2} margin="none">
         app
       </Heading>
+      <Box direction="row" align="baseline">
+        {user.isAuthenticated && (
+          <>
+            <Text margin={{ right: 'small' }} size="small">
+              Bienvenue {user.user.username}
+            </Text>
+            <Button label="logout" primary color="accent" onClick={() => logout()} />
+          </>
+        )}
+      </Box>
     </Box>
   );
 }

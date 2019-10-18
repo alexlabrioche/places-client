@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Box, ResponsiveContext } from 'grommet';
 
-function MapContainer() {
+function Home() {
   const size = useContext(ResponsiveContext);
+  // const {user} = useContext(ResponsiveContext);
   let isMobile = size === 'small' ? true : false;
   return (
     <Box fill direction={isMobile ? 'column' : 'row'}>
@@ -16,4 +17,4 @@ function MapContainer() {
   );
 }
 
-export default MapContainer;
+export default Home;
