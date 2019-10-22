@@ -1,6 +1,7 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useMemo } from 'react';
 import { setToken } from '../services/api';
-import { logoutUser, authUser } from './actions/userActions';
+import { logoutUser, authUser } from './actions/authActions';
+import { loadUsers, addComment } from './actions/userActions';
 import userReducer from './reducers/userReducer';
 import { DEFAULT_STATE } from './actionsTypes';
 import jwtDecode from 'jwt-decode';
@@ -15,21 +16,23 @@ export const UserContext = createContext();
 
 function UserProvider({ children }) {
   const [user, dispatch] = useReducer(userReducer, DEFAULT_STATE);
+  console.info('user', user);
   let history = useHistory();
-  useEffect(() => {
+  useMemo(() => {
     if (localStorage.jwtToken) {
       setToken(localStorage.jwtToken);
-      authUser(dispatch)('me', jwtDecode(localStorage.jwtToken));
+      authUser(dispatch, history)('me', jwtDecode(localStorage.jwtToken));
     }
-  }, []);
-  useEffect(() => {
-    if (user.isAuthenticated) {
-      history.push('/');
-    }
-  }, [user, history]);
+  }, [history]);
   return (
     <UserContext.Provider
-      value={{ user, authUser: authUser(dispatch), logout: logoutUser(dispatch) }}
+      value={{
+        currentUser: user,
+        loadUsers: loadUsers(dispatch),
+        addComment: addComment(dispatch),
+        authUser: authUser(dispatch, history),
+        logout: logoutUser(dispatch, history),
+      }}
     >
       {children}
     </UserContext.Provider>

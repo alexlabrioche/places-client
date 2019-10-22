@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-const yelpKey = process.env.YELP_API_KEY;
-
 export default axios.create({
-  baseURL: 'https://api.yelp.com/v3/businesses',
+  baseURL: `${process.env.REACT_APP_ALLOW_CORS}${process.env.REACT_APP_YELP_URI}`,
   headers: {
-    Authorization: `Bearer ${yelpKey}`,
+    Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`,
   },
 });

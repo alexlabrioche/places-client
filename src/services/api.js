@@ -10,9 +10,8 @@ export function setToken(token) {
 }
 
 export function apiCall(method, path, data) {
-  console.info('path', path);
   return new Promise((resolve, reject) => {
-    return axios[method](`http://localhost:5555/${path}`, data)
+    return axios[method](`${process.env.REACT_APP_SERVER_URI}/${path}`, data)
       .then((res) => {
         return resolve(res.data);
       })

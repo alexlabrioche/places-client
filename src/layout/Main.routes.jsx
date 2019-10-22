@@ -8,13 +8,13 @@ import AuthContainer from '../containers/Auth';
 import { UserContext } from '../context/userContext';
 
 function MainLayout() {
-  const { user } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   return (
     <Box fill height={{ min: '100vh' }}>
       <AppBar />
       <Switch>
         <Route exact path="/">
-          {user.isAuthenticated ? <HomeContainer /> : <Redirect to="/sign" />}
+          {currentUser.isAuthenticated ? <HomeContainer /> : <Redirect to="/sign" />}
         </Route>
         <Route exact path="/sign" component={AuthContainer} />
       </Switch>

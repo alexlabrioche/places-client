@@ -9,8 +9,9 @@ const theme = {
       height: '20px',
     },
     colors: {
-      brand: '#70C3FF',
-      accent: '#8CFFB4',
+      brand: '#fa0e40',
+      'brand-dark': '#E50027',
+      accent: '#29335C',
       lightgrey: '#B5B5B5',
     },
   },

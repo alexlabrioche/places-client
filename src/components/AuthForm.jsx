@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormField, Button } from 'grommet';
+import { Form, FormField, Button, Box } from 'grommet';
 
 function AuthForm({ isSignUp, toggleFormType, handleForm, onSubmit, values }) {
   const { username, email, password, confirm } = values;
@@ -17,6 +17,7 @@ function AuthForm({ isSignUp, toggleFormType, handleForm, onSubmit, values }) {
         name="email"
         value={email}
         label="Email"
+        type="email"
         onChange={(e) => handleForm(e, 'email')}
       />
       <FormField
@@ -35,9 +36,11 @@ function AuthForm({ isSignUp, toggleFormType, handleForm, onSubmit, values }) {
         />
       )}
       <Button fill type="submit" primary label="Valider" />
-      <Button margin={{ top: 'small' }} plain onClick={toggleFormType}>
-        {isSignUp ? 'Déjà enregistré ?' : 'Nouveau ici ?'}
-      </Button>
+      <Box fill="horizontal" align="end">
+        <Button margin={{ top: 'medium' }} onClick={toggleFormType}>
+          {isSignUp ? 'Déjà enregistré ?' : 'Nouveau ici ?'}
+        </Button>
+      </Box>
     </Form>
   );
 }

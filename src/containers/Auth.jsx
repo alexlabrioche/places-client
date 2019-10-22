@@ -3,7 +3,12 @@ import { Box, Heading } from 'grommet';
 import AuthForm from '../components/AuthForm';
 import { UserContext } from '../context/userContext';
 
-const DEFAULT_FORM = { email: '', password: '', username: '', confirm: '' };
+const DEFAULT_FORM = {
+  email: 'user1@mail.com',
+  password: 'miam1234',
+  username: 'egeg',
+  confirm: 'miam1234',
+};
 
 function Auth() {
   const [values, setValues] = useState(DEFAULT_FORM);

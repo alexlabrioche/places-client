@@ -1,28 +1,32 @@
 import React, { useContext } from 'react';
-import { Box, Heading, Text, Button } from 'grommet';
+import ImageContainer from '../components/core/ImageContainer';
+import { Box, Heading, Text } from 'grommet';
 import { UserContext } from '../context/userContext';
+import ModalUserLayer from '../components/Layers/ModalUserLayer';
 
 function AppBar({ ...otherProps }) {
-  const { user, logout } = useContext(UserContext);
+  const { currentUser, logout } = useContext(UserContext);
+  const { user, isAuthenticated } = currentUser;
   return (
     <Box
       direction="row"
       align="center"
       justify="between"
-      pad={{ vertical: 'small', horizontal: 'medium' }}
+      pad={{ vertical: 'small' }}
       {...otherProps}
-      background="light-1"
     >
-      <Heading level={2} margin="none">
-        app
-      </Heading>
-      <Box direction="row" align="baseline">
-        {user.isAuthenticated && (
+      <Box direction="row">
+        <ImageContainer source="img/app-logo.png" style={{ transform: 'rotate(-15deg)' }} />
+        <Heading level={2} margin="none" color="brand">
+          Pins
+        </Heading>
+      </Box>
+
+      <Box direction="row" align="center">
+        {isAuthenticated && (
           <>
-            <Text margin={{ right: 'small' }} size="small">
-              Bienvenue {user.user.username}
-            </Text>
-            <Button label="logout" primary color="accent" onClick={() => logout()} />
+            <Text>{user.username}</Text>
+            <ModalUserLayer logout={logout} user={user} />
           </>
         )}
       </Box>
