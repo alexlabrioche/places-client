@@ -26,13 +26,7 @@ const ModalUserLayer = ({ logout, user }) => {
               <ImageContainer size="4rem" source="img/placeholders/default-profile.png" isRound />
               <Button onClick={() => setOpen(undefined)} icon={<Close />} plain />
             </Box>
-            <Box fill overflow="auto">
-              <Box pad={{ horizontal: 'xlarge', vertical: 'medium' }}>
-                <Heading level={2}> Bienvenue {user.username}</Heading>
-                <Text>Vous avez pour l'instant {user.friends.length} ami(s) </Text>
-                <Text>Vous avez laissé {user.comments.length} commentaire(s) </Text>
-              </Box>
-            </Box>
+
             <Box fill="horizontal" pad={{ horizontal: 'small', vertical: 'medium' }} align="end">
               <Button label="Se déconnecter" primary color="brand" onClick={() => logout()} />
             </Box>

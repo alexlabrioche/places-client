@@ -1,4 +1,4 @@
-import { LOAD_USERS, ADD_COMMENT } from '../actionsTypes';
+import { LOAD_USERS, ADD_COMMENT, GET_COMMENTS } from '../actionsTypes';
 import { apiCall } from '../../services/api';
 
 export function loadUsers(dispatch) {
@@ -19,11 +19,26 @@ export function loadUsers(dispatch) {
 }
 
 export function addComment(dispatch) {
-  return (id) => {
+  return (id, data) => {
     return new Promise((resolve, reject) => {
-      return apiCall('post', `api/users/${id}/comments`)
+      return apiCall('post', `api/users/${id}/comments`, data)
         .then((payload) => {
           dispatch({ type: ADD_COMMENT, payload });
+          resolve();
+        })
+        .catch((err) => {
+          console.info(err);
+          reject();
+        });
+    });
+  };
+}
+export function getUserComments(dispatch) {
+  return (id) => {
+    return new Promise((resolve, reject) => {
+      return apiCall('get', `api/users/${id}/comments`)
+        .then((payload) => {
+          dispatch({ type: GET_COMMENTS, payload });
           resolve();
         })
         .catch((err) => {

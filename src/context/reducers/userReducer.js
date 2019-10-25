@@ -4,6 +4,7 @@ import {
   LOAD_USERS,
   USER_DETAILS,
   ADD_COMMENT,
+  GET_COMMENTS,
 } from '../actionsTypes';
 
 const userReducer = (state, { type, payload }) => {
@@ -18,6 +19,9 @@ const userReducer = (state, { type, payload }) => {
       return { ...state, user: payload };
     case ADD_COMMENT:
       return { ...state };
+    case GET_COMMENTS:
+      console.info('GET_COMMENTS payload', payload);
+      return { ...state, user: { ...state.user, comments: payload } };
     default:
       throw new Error();
   }

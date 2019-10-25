@@ -1,12 +1,12 @@
 import React, { Fragment, useContext, useState, useEffect } from 'react';
-import EmptyMap from '../components/EmptyMap';
-import { GoogleMap, Marker } from '../components/GoogleMap';
-import { UserContext } from '../context/userContext';
+import EmptyMap from '../../components/EmptyMap';
+import { GoogleMap, Marker } from '../../components/GoogleMap';
+import { AppContext } from '../../context/AppContext';
 
 const PARIS_CENTER = [48.8534, 2.3488];
 
 function MapContainer({ google }) {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AppContext);
   const [places, setplaces] = useState([]);
   console.info('Map Container places', places);
   // useEffect(() => {

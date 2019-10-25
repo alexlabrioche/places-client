@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import UserProvider from './context/userContext';
+import AppProvider from './context/AppContext';
 import ThemeProvider from './theme/themeProvider';
-import MainLayout from './layout/Main.routes';
+import AppLayout from './layout/AppLayout';
+import { BrowserRouter as RouterProvider } from 'react-router-dom';
 
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <UserProvider>
-          <MainLayout />
-        </UserProvider>
-      </Router>
+      <RouterProvider>
+        <AppProvider>
+          <AppLayout />
+        </AppProvider>
+      </RouterProvider>
     </ThemeProvider>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useCallback, useEffect } from 'react';
 import { Box } from 'grommet';
-import { UserContext } from '../context/userContext';
+import { AppContext } from '../context/AppContext';
 import useYelpApiResult from '../hooks/useYelpApiResult';
 import SearchComponent from '../components/SearchBar/SearchBarComponent';
 import ModalSelectedLayer from '../components/Layers/ModalSelectedLayer';
@@ -10,7 +10,7 @@ function ShopContainer() {
   const [suggestionOpen, setSuggestionOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
   const [showSelectedLayer, setShowSelectedLayer] = useState(false);
-  const { currentUser, addComment } = useContext(UserContext);
+  const { currentUser, addComment, getUserComments } = useContext(AppContext);
   const { queryYelpApi, yelpApiresult, resetYelpApiResult } = useYelpApiResult();
   console.info('yelpApiresult', yelpApiresult);
   console.info('searchValue', searchValue);
@@ -39,13 +39,12 @@ function ShopContainer() {
     }
   };
   const handleNewComment = (comment) => {
-    // setShowSelectedLayer(false);
-    // addComment(currentUser.user.id, {
-    //   text: comment,
-    //   store: selectedValue.id,
-    // });
+    setShowSelectedLayer(false);
+    addComment(currentUser.user.id, {
+      text: comment,
+      store: selectedValue.id,
+    });
   };
-
   return (
     <Box pad="medium">
       <SearchComponent
@@ -57,6 +56,7 @@ function ShopContainer() {
         suggestionOpen={suggestionOpen}
         setSuggestionOpen={setSuggestionOpen}
       />
+      <button onClick={() => getUserComments(currentUser.user.id)}>voir mes commentaires</button>
       {showSelectedLayer && (
         <ModalSelectedLayer
           {...selectedValue}
