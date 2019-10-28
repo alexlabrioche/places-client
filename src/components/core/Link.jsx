@@ -17,7 +17,6 @@ function Link({ children, to, ...props }) {
 }
 
 Link.propTypes = {
-  children: PropTypes.elementType.isRequired,
   to: PropTypes.string.isRequired,
 };
 

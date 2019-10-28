@@ -8,6 +8,7 @@ function Sign() {
   const { authUser } = useContext(AppContext);
 
   const handleSubmit = (payload) => {
+    console.info('submitted login');
     let type = isSignUp ? 'signup' : 'login';
     authUser(type, payload);
   };

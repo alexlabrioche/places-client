@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 import AddPlaceForm from '../../components/AddPlaceForm';
 import { Box, ResponsiveContext } from 'grommet';
+import { AppContext } from '../../context/AppContext';
 
 function AddPlace() {
   const size = useContext(ResponsiveContext);
+  const { user, addPlace } = useContext(AppContext);
   const submitForm = (payload) => {
-    console.info('Form Submitted', payload);
+    console.info('Form Submitted', user._id, payload);
+    addPlace(user._id, payload);
   };
   return (
     <Box fill pad="medium" align={size === 'small' ? 'stretch' : 'center'}>

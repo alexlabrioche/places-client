@@ -1,11 +1,4 @@
-import {
-  SET_CURRENT_USER,
-  LOGOUT_USER,
-  LOAD_USERS,
-  USER_DETAILS,
-  ADD_COMMENT,
-  GET_COMMENTS,
-} from '../actionsTypes';
+import { SET_CURRENT_USER, LOGOUT_USER, LOAD_USERS, ADD_PLACE, GET_USER } from '../actionsTypes';
 
 const userReducer = (state, { type, payload }) => {
   switch (type) {
@@ -15,13 +8,10 @@ const userReducer = (state, { type, payload }) => {
       return { isAuthenticated: false, user: {} };
     case LOAD_USERS:
       return { ...state, users: payload };
-    case USER_DETAILS:
+    case GET_USER:
       return { ...state, user: payload };
-    case ADD_COMMENT:
-      return { ...state };
-    case GET_COMMENTS:
-      console.info('GET_COMMENTS payload', payload);
-      return { ...state, user: { ...state.user, comments: payload } };
+    case ADD_PLACE:
+      return { ...state, user: { ...state.user, user: payload } };
     default:
       throw new Error();
   }

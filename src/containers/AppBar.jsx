@@ -38,12 +38,14 @@ function AppBar({ ...otherProps }) {
           </Box>
         </>
       ) : (
-        <Box direction="row">
-          <ImageContainer source="img/app-logo.png" style={{ transform: 'rotate(-15deg)' }} />
-          <Heading level={2} margin="none" color="brand">
-            PL_CES
-          </Heading>
-        </Box>
+        <Link to="/">
+          <Box direction="row">
+            <ImageContainer source="img/app-logo.png" style={{ transform: 'rotate(-15deg)' }} />
+            <Heading level={2} margin="none" color="brand">
+              PL_CES
+            </Heading>
+          </Box>
+        </Link>
       )}
     </Box>
   );

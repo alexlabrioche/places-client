@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+export const GET = 'get';
+export const POST = 'post';
+export const PUT = 'put';
+export const DELETE = 'delete';
+
 export function setToken(token) {
-  console.info('setToken token:', token);
   if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {

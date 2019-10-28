@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, FormField, Button, TextArea } from 'grommet';
+import { Box, Form, FormField, Button, TextArea, CheckBox, Select } from 'grommet';
 import PlacesAutocomplete from './PlacesAutocomplete';
 
 const DEFAULT_VALUES = {
@@ -12,12 +12,26 @@ const DEFAULT_VALUES = {
     },
     address: '',
   },
+  tags: [],
 };
 
 const DEFAULT_ERRORS = { name: null, description: null, address: null };
 
+const TAGS_OPTIONS = ['bar', 'restaurant', 'culture', 'visite', 'parc'];
+
+const Option = ({ value, selected }) => {
+  return (
+    <Box direction="row" gap="small" align="center" pad="xsmall">
+      <CheckBox tabIndex="-1" checked={selected} onChange={() => {}} />
+      {value}
+    </Box>
+  );
+};
+
 function AddPlaceForm({ submitForm }) {
   const [values, setValues] = useState(DEFAULT_VALUES);
+  const [selected, setSelected] = useState([]);
+  const [options, setOptions] = useState(TAGS_OPTIONS);
   const [errors, setErrors] = useState(DEFAULT_ERRORS);
   const onSubmit = () => {
     setErrors(DEFAULT_ERRORS);
@@ -53,7 +67,7 @@ function AddPlaceForm({ submitForm }) {
         type="string"
         onChange={handleForm}
         error={errors.name}
-      />{' '}
+      />
       <FormField
         label="Description"
         htmlFor="text-area"
@@ -63,7 +77,45 @@ function AddPlaceForm({ submitForm }) {
         onChange={handleForm}
         error={errors.description}
       />
+      <Select
+        multiple
+        closeOnChange={false}
+        placeholder="select an option..."
+        selected={selected}
+        options={options}
+        dropHeight="medium"
+        onClose={() =>
+          setOptions(
+            options.sort((p1, p2) => {
+              const p1Exists = selected.includes(p1);
+              const p2Exists = selected.includes(p2);
+
+              if (!p1Exists && p2Exists) {
+                return 1;
+              }
+              if (p1Exists && !p2Exists) {
+                return -1;
+              }
+              return p1.localeCompare(p2, undefined, {
+                numeric: true,
+                sensitivity: 'base',
+              });
+            }),
+          )
+        }
+        onChange={({ selected: nextSelected }) => {
+          setSelected(nextSelected);
+        }}
+      >
+        {(option, index) => <Option value={option} selected={selected.indexOf(index) !== -1} />}
+      </Select>
       <PlacesAutocomplete onPlaceSelected={setValues} handleError={errors.address} />
+      {/* <CheckBox
+        checked={checked}
+        label="interested?"
+        onChange={(event) => setChecked(event.target.checked)}
+      /> */}
+
       <Button type="submit" primary label="Ajouter" />
     </Form>
   );

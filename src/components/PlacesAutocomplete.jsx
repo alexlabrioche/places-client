@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { FormField, TextInput, Box, Text } from 'grommet';
 
+const searchOptions = {
+  componentRestrictions: { country: ['fr'] },
+};
+
 const LocationSearchInput = ({ onPlaceSelected, handleError }) => {
-  const [address, setAddress] = React.useState('');
+  const [address, setAddress] = useState('');
 
   const handleChange = (address) => {
     setAddress(address);
@@ -21,7 +25,12 @@ const LocationSearchInput = ({ onPlaceSelected, handleError }) => {
   };
 
   return (
-    <PlacesAutocomplete value={address} onChange={handleChange} onSelect={handleSelect}>
+    <PlacesAutocomplete
+      value={address}
+      onChange={handleChange}
+      onSelect={handleSelect}
+      searchOptions={searchOptions}
+    >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
         return (
           <Box fill>
