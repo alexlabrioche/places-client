@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import EmptyMap from '../../components/EmptyMap';
 import { GoogleMap, Marker } from '../../components/GoogleMap';
 import { AppContext } from '../../context/AppContext';
@@ -6,12 +6,11 @@ import { AppContext } from '../../context/AppContext';
 const PARIS_CENTER = [48.8534, 2.3488];
 
 function MapContainer({ google }) {
-  const { user } = useContext(AppContext);
+  const { user, history } = useContext(AppContext);
 
   const getMapBounds = (map, maps, places) => {
     const bounds = new maps.LatLngBounds();
     user.places.forEach((place) => {
-      console.info('forEach place', place);
       bounds.extend(
         new maps.LatLng(place.location.coordinates.lat, place.location.coordinates.lng),
       );
@@ -28,10 +27,12 @@ function MapContainer({ google }) {
   };
 
   const apiIsLoaded = (map, maps, places) => {
-    console.info('fire ApiIsLoaded');
     const bounds = getMapBounds(map, maps, places);
     map.fitBounds(bounds);
     bindResizeListener(map, maps, bounds);
+  };
+  const onMarkerClick = (markerSlug) => {
+    history.push(`/place/${markerSlug}`);
   };
 
   return (
@@ -43,12 +44,14 @@ function MapContainer({ google }) {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, user.places)}
         >
-          {user.places.map((place, idx) => (
+          {user.places.map(({ name, _id, slug, location: { coordinates } }) => (
             <Marker
-              key={idx}
-              text={place.name}
-              lat={place.location.coordinates.lat}
-              lng={place.location.coordinates.lng}
+              key={_id}
+              id={slug}
+              text={name}
+              lat={coordinates.lat}
+              lng={coordinates.lng}
+              onClick={onMarkerClick}
             />
           ))}
         </GoogleMap>

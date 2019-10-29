@@ -7,6 +7,7 @@ import { Box, Button, Grommet, Layer, Heading, Text } from 'grommet';
 
 const ModalUserLayer = ({ logout, user }) => {
   const [open, setOpen] = useState();
+  console.info('USERPERSONNAL', user);
   return (
     <Grommet theme={theme}>
       <Box fill align="baseline" justify="center">

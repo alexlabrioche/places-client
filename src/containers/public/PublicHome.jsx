@@ -14,7 +14,7 @@ function PublicHome() {
         margin="medium"
         label={
           <Text>
-            <Link to="/sign">Sign</Link>
+            <Link to="/sign">Nous rejoindre !</Link>
           </Text>
         }
       />

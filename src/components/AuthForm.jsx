@@ -1,30 +1,42 @@
 import React, { useState } from 'react';
+import ImageDrop from '../components/core/ImageDrop';
 import { Form, FormField, Button, Box } from 'grommet';
 
 const DEFAULT_FORM = {
-  email: 'test4@mail.com',
-  password: 'test',
-  // username: 'testZer',
-  // confirm: 'test',
+  email: '',
+  password: '',
+  username: '',
+  confirm: '',
+  image: null,
 };
 
 function AuthForm({ isSignUp, toggleForm, onSubmit }) {
   const [values, setValues] = useState(DEFAULT_FORM);
+  console.info(values);
   const handleForm = (e) => {
     let key = e.target.name;
     let value = e.target.value;
     setValues((s) => ({ ...s, [key]: value }));
   };
+  const handleFile = (files) => {
+    let image = files[0];
+    setValues((s) => ({ ...s, image }));
+  };
   const { username, email, password, confirm } = values;
   return (
-    <Form onSubmit={() => onSubmit(values)}>
+    <Form onSubmit={() => onSubmit(values)} encType="multipart/form-data">
       {isSignUp && (
-        <FormField
-          name="username"
-          value={username}
-          label="Nom d'utilisateur"
-          onChange={(e) => handleForm(e)}
-        />
+        <>
+          <Box fill="horizontal">
+            <ImageDrop handleFile={handleFile} />
+          </Box>
+          <FormField
+            name="username"
+            value={username}
+            label="Nom d'utilisateur"
+            onChange={(e) => handleForm(e)}
+          />
+        </>
       )}
       <FormField
         name="email"

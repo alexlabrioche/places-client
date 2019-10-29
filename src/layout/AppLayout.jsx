@@ -7,13 +7,18 @@ import AppBar from '../containers/AppBar';
 import AuthContainer from '../containers/public/Sign';
 import PublicHomeContainer from '../containers/public/PublicHome';
 import MapContainer from '../containers/private/Map';
+import PlaceContainer from '../containers/private/Place';
 import AddPlaceContainer from '../containers/private/AddPlace';
 import AuthHomeContainer from '../containers/private/AuthHome';
 
 function MainLayout() {
   const { isAuthenticated } = useContext(AppContext);
   return (
-    <Box fill height={{ min: '100vh' }} background={isAuthenticated ? 'white' : 'light-1'}>
+    <Box
+      fill="horizontal"
+      height={{ min: '100vh' }}
+      background={isAuthenticated ? 'white' : 'light-1'}
+    >
       <AppBar />
 
       <Switch>
@@ -28,6 +33,9 @@ function MainLayout() {
         </PrivateRoute>
         <PrivateRoute path="/ajouter">
           <AddPlaceContainer />
+        </PrivateRoute>
+        <PrivateRoute path="/place/:place_id">
+          <PlaceContainer />
         </PrivateRoute>
       </Switch>
     </Box>

@@ -9,7 +9,6 @@ function AuthHome() {
     getUser,
   } = useContext(AppContext);
   const size = useContext(ResponsiveContext);
-  console.info('SIZE', size);
   useEffect(() => {
     getUser(_id);
   }, []);

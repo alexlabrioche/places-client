@@ -8,14 +8,13 @@ function Sign() {
   const { authUser } = useContext(AppContext);
 
   const handleSubmit = (payload) => {
-    console.info('submitted login');
     let type = isSignUp ? 'signup' : 'login';
     authUser(type, payload);
   };
 
   return (
-    <Box fill align="center" justify="center">
-      <Box elevation="small" pad="large" round="xsmall" background="white">
+    <Box fill align="center" justify="center" pad={{ vertical: 'large' }}>
+      <Box width="600px" elevation="small" pad="large" round="xsmall" background="white">
         <Heading level={2}>{isSignUp ? `S'enregister` : `Se connecter`}</Heading>
         <AuthForm isSignUp={isSignUp} onSubmit={handleSubmit} toggleForm={toggleForm} />
       </Box>

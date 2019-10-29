@@ -34,6 +34,7 @@ function AppProvider({ children }) {
     <AppContext.Provider
       value={{
         ...user,
+        history,
         addPlace: addPlace(dispatch, history),
         loadUsers: loadUsers(dispatch),
         authUser: authUser(dispatch, history),
